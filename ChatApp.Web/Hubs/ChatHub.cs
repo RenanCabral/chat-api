@@ -2,7 +2,7 @@
 
 namespace ChatApp.Web.Hubs
 {
-    public class ChatHub : Hub
+    public class ChatHub : Hub, IChatHub
     {
         public async Task SendMessage(string user, string message)
         {

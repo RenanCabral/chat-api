@@ -1,23 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Extensions.Configuration;
-
-namespace ChatApp.Infrastructure.CrossCutting
+﻿namespace ChatApp.CrossCutting
 {
-    public class AppConfiguration
+    public static class AppConfiguration
     {
-        /// <summary>
-        /// Settings configuration section.
-        /// </summary>
-        public static IDictionary<string, string> RabbitMQ { get; private set; } = new Dictionary<string, string>();
+        public static Settings Settings { get; set; } = new Settings();
+        public static RabbitMqConfiguration RabbitMqConfiguration { get; set; } = new RabbitMqConfiguration();
+    }
 
-        public static void Load(IConfiguration configuration)
-        {
-            RabbitMQ = configuration
-                .GetSection("RabbitMQ")
-                .AsEnumerable()
-                .ToDictionary(i => i.Key.Replace("RabbitMQ:",""), i => i.Value, StringComparer.OrdinalIgnoreCase);
-        }
+    public class Settings
+    {
+   
+    }
+
+    public class RabbitMqConfiguration
+    {
+        public string HostName { get; set; }
+        public string UserName { get; set; }
+        public string Password { get; set; }
+        public string VirtualHost { get; set; }
+        public int Port { get; set; }
     }
 }

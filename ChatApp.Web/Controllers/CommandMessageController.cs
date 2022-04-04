@@ -21,11 +21,8 @@ namespace ChatApp.Web.Controllers
             try
             {
                 await messageService.SendAsync(message);
-
-                var response = new HttpResponseMessage(HttpStatusCode.OK);
-                response.Content = new StringContent("APPL.US quote is $93.42 per share.");
                 
-                return response;
+                return new HttpResponseMessage(HttpStatusCode.OK);
             }
             catch (Exception)
             {

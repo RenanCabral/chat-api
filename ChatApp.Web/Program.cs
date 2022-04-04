@@ -1,8 +1,8 @@
 using ChatApp.Application.Services;
-using ChatApp.Infrastructure.CrossCutting;
-using ChatApp.Infrastructure.Queue.RabbitMQ;
-using ChatApp.Infrastructure.Queue.RabbitMQ.Configuration;
+using ChatApp.CrossCutting;
+using ChatApp.MessageQueue.Brokers.RabbitMQ;
 using ChatApp.Web.Hubs;
+using ChatApp.Web.Jobs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,11 +13,18 @@ builder.Services.AddSignalR();
 
 builder.Services.AddControllers();
 
+builder.Services.UseScheduler();
+
 // Dependencies injection
-builder.Services.AddSingleton<IRabbitProducer>(svc => new RabbitProducer(GetRabbitConfiguration()));
-builder.Services.AddSingleton<IRabbitConsumer>(svc => new RabbitConsumer(GetRabbitConfiguration()));
+builder.Services.AddSingleton<IProducer>(svc => new Producer(AppConfiguration.RabbitMqConfiguration));
+
+builder.Services.AddSingleton<IConsumer>(svc => new Consumer(AppConfiguration.RabbitMqConfiguration));
+
 builder.Services.AddScoped<ILoginService, LoginService>();
+
 builder.Services.AddScoped<IMessageService, MessageService>();
+
+builder.Services.AddScoped<IChatHub, ChatHub>();
 
 var app = builder.Build();
 
@@ -46,26 +53,21 @@ app.MapHub<ChatHub>("/chatHub");
 
 var env = builder.Environment;
 
-builder.Configuration
+var configuration = builder.Configuration;
+
+configuration
     .SetBasePath(env.ContentRootPath)
     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
     .AddJsonFile($"appsettings.{ env.EnvironmentName }.json", optional: true, reloadOnChange: true)
     .AddEnvironmentVariables();
 
-AppConfiguration.Load(builder.Configuration);
-
+AppConfiguration.RabbitMqConfiguration = new RabbitMqConfiguration()
+    {
+        HostName = configuration.GetValue<string>("Settings:RabbitMq:HostName"),
+        UserName = configuration.GetValue<string>("Settings:RabbitMq:UserName"),
+        Password = configuration.GetValue<string>("Settings:RabbitMq:Password"),
+        VirtualHost = configuration.GetValue<string>("Settings:RabbitMq:VirtualHost"),
+        Port = configuration.GetValue<int>("Settings:RabbitMq:Port")
+    };
 
 app.Run();
-
-
-RabbitConfiguration GetRabbitConfiguration() =>
-new RabbitConfiguration
-{
-    HostName = AppConfiguration.RabbitMQ["HostName"],
-    Port = Convert.ToInt32(AppConfiguration.RabbitMQ["Port"]),
-    VirtualHost = AppConfiguration.RabbitMQ["VirtualHost"],
-    Username = AppConfiguration.RabbitMQ["Username"],
-    Password = AppConfiguration.RabbitMQ["Password"],
-    Exchange = AppConfiguration.RabbitMQ["Exchange"],
-    RoutingKey = AppConfiguration.RabbitMQ["RoutingKey"]
-};
