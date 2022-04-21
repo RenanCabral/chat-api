@@ -29,7 +29,7 @@ namespace ChatApp.Web.Jobs
 
             ITrigger trigger = TriggerBuilder.Create()
                                 .WithIdentity("stock-quote-job-trigger", "Job")
-                                .StartNow()
+                                .StartAt(DateTime.Now.AddSeconds(5))
                                 .WithSimpleSchedule(x => x.WithIntervalInSeconds(1).RepeatForever())
                                 .Build();
 

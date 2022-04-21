@@ -17,15 +17,15 @@ builder.Services.AddControllers();
 builder.Services.AddQuartz();
 
 // Dependencies injection
-builder.Services.AddSingleton<IProducer>(svc => new Producer(AppConfiguration.RabbitMqConfiguration));
+builder.Services.AddScoped<IConsumer>(rabbitReceiver => new Consumer(AppConfiguration.RabbitMqConfiguration));
 
-builder.Services.AddSingleton<IConsumer>(svc => new Consumer(AppConfiguration.RabbitMqConfiguration));
+builder.Services.AddScoped<IProducer>(rabbitPublisher => new Producer(AppConfiguration.RabbitMqConfiguration));
 
 builder.Services.AddScoped<ILoginService, LoginService>();
 
 builder.Services.AddScoped<IMessageService, MessageService>();
 
-builder.Services.AddScoped<IChatHub, ChatHub>();
+builder.Services.AddSingleton<IChatHub, ChatHub>();
 
 builder.Services.UseScheduler();
 
