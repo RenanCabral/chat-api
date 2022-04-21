@@ -27,7 +27,7 @@ namespace ChatApp.MessageQueue.Brokers.RabbitMQ
             {
                 using (var channel = connection.CreateModel())
                 {
-                    channel.QueueDeclare(queue: queue, durable: false, exclusive: false, autoDelete: false, arguments: null);
+                    channel.QueueDeclare(queue: queue, durable: true, exclusive: false, autoDelete: false, arguments: null);
 
                     var consumer = new EventingBasicConsumer(channel);
                     consumer.Received += eventHandler;

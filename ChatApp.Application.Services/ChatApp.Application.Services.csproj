@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ChatApp.DataContracts\ChatApp.DataContracts.csproj" />
     <ProjectReference Include="..\ChatApp.Infrastructure.Queue\ChatApp.Infrastructure.Queue.csproj" />
   </ItemGroup>

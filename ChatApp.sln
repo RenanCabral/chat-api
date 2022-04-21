@@ -13,7 +13,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatApp.DataContracts", "Ch
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatApp.Web", "ChatApp.Web\ChatApp.Web.csproj", "{C2ACD412-2638-44ED-9506-8AB4CF8E73E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatApp.Application.Services.Tests", "ChatApp.Application.Services.Tests\ChatApp.Application.Services.Tests.csproj", "{58C0D600-4A48-45E8-B5A5-F2BE50A4DD05}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatApp.Application.Services.Tests", "ChatApp.Application.Services.Tests\ChatApp.Application.Services.Tests.csproj", "{58C0D600-4A48-45E8-B5A5-F2BE50A4DD05}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E951457F-EAC5-44C6-ABED-03AE4D52D441}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

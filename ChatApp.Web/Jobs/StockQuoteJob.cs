@@ -18,7 +18,7 @@ namespace ChatApp.Web.Jobs
         public Task Execute(IJobExecutionContext context)
         {
             messageService.ReadMessagesFromQueue("chat-app-queue", OnMessageReceived);
-           
+
             return Task.CompletedTask;
         }
 

@@ -3,6 +3,7 @@ using ChatApp.CrossCutting;
 using ChatApp.MessageQueue.Brokers.RabbitMQ;
 using ChatApp.Web.Hubs;
 using ChatApp.Web.Jobs;
+using Quartz;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +14,7 @@ builder.Services.AddSignalR();
 
 builder.Services.AddControllers();
 
-builder.Services.UseScheduler();
+builder.Services.AddQuartz();
 
 // Dependencies injection
 builder.Services.AddSingleton<IProducer>(svc => new Producer(AppConfiguration.RabbitMqConfiguration));
@@ -25,6 +26,8 @@ builder.Services.AddScoped<ILoginService, LoginService>();
 builder.Services.AddScoped<IMessageService, MessageService>();
 
 builder.Services.AddScoped<IChatHub, ChatHub>();
+
+builder.Services.UseScheduler();
 
 var app = builder.Build();
 
