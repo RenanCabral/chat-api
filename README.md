@@ -13,7 +13,7 @@ Small real time chat application where users can interact in a chatroom.
 
 ### How to start:
 
- * docker run -p 15672:15672 -d --hostname chat-rabbit --name chat-rabbit rabbitmq:management
+ * docker run -p 15672:15672 -p 5672:5672 -d --hostname rabbitmq --name rabbitmq rabbitmq:management
 
  * dotnet run --project ChatApp.Web\ChatApp.Web.csproj
 
