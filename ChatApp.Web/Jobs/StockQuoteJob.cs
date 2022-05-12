@@ -26,7 +26,14 @@ namespace ChatApp.Web.Jobs
         {
             var message = ReadMessageFromBody(e.Body);
 
-            this.chatHub.SendMessage("chat-bot", message);
+            try
+            {
+                this.chatHub.SendMessage("chat-bot", message);
+            }
+            catch (Exception)
+            {
+                //TODO: some log here
+            }
         }
 
         private string ReadMessageFromBody(ReadOnlyMemory<byte> body)
