@@ -1,5 +1,7 @@
-# chat-app
+# chat-api
 Small real time chat application where users can interact in a chatroom.
+
+*BFF for chat-app*
 
 ### Stack:
 
