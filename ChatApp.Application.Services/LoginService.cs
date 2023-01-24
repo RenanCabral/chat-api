@@ -1,4 +1,5 @@
 ﻿using ChatApp.DataContracts;
+using System;
 using System.Threading.Tasks;
 
 namespace ChatApp.Application.Services
@@ -11,7 +12,7 @@ namespace ChatApp.Application.Services
 
         public async Task LogInAsync(User user)
         {
-         
+            throw new NotImplementedException();
         }
     }
 }

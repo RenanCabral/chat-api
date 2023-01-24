@@ -5,9 +5,8 @@ namespace ChatApp.Web.Hubs
     public class ChatHub : Hub, IChatHub
     {
         public async Task SendMessage(string user, string message)
-        {
-            if (Clients != null)
-                await Clients.All.SendAsync("ReceiveMessage", user, message);
+        {   
+            await Clients.All.SendAsync("ReceiveMessage", user, message);
         }
     }
 }
