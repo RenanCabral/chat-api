@@ -4,6 +4,7 @@ using ChatApp.MessageQueue.Brokers.RabbitMQ;
 using ChatApp.Web.Hubs;
 using ChatApp.Web.Jobs;
 using Quartz;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
