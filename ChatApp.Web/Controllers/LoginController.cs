@@ -1,10 +1,7 @@
 ﻿using ChatApp.Application.Services;
 using ChatApp.DataContracts;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace ChatApp.Web.Controllers
 {
